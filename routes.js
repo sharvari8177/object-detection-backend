@@ -1,15 +1,5 @@
-const express = require("express");
 const { authenticateImplicitWithAdc } = require("./auth/auth");
 
-//server configurations
-const app = express();
-app.use(express.json({ limit: "50mb", extended: true }));
-app.use(
-  express.urlencoded({ limit: "200mb", extended: true, parameterLimit: 50000 })
-);
-app.use(express.text({ limit: "200mb" }));
-
-//Routes
 app.post("/predict", async (req, res) => {
   // Assuming imageData is base64-encoded
   const { imageData } = req.body;
@@ -38,8 +28,3 @@ app.post("/predict", async (req, res) => {
     res.status(500).send("Failed to make prediction");
   }
 });
-
-const port = 3000;
-app.listen(port, "192.168.0.119", () =>
-  console.log(`Server listening on port ${port}`)
-);
